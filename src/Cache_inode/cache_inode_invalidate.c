@@ -76,7 +76,8 @@
  */
 cache_inode_status_t
 cache_inode_invalidate(cache_inode_fsal_data_t *fsal_data,
-                       cache_inode_status_t *status)
+                       cache_inode_status_t *status,
+                       uint32_t flags)
 {
      hash_buffer_t key, value;
      int rc = 0 ;
@@ -134,10 +135,11 @@ cache_inode_invalidate(cache_inode_fsal_data_t *fsal_data,
         without invalidating content (since any change in content
         really ought to modify mtime, at least.) */
 
-     atomic_clear_int_bits(&entry->flags,
-                           CACHE_INODE_TRUST_ATTRS |
-                           CACHE_INODE_DIR_POPULATED |
-                           CACHE_INODE_TRUST_CONTENT);
+     if (flags == CACHE_INODE_INVALIDATE_CLEARBITS)
+       atomic_clear_int_bits(&entry->flags,
+                             CACHE_INODE_TRUST_ATTRS |
+                             CACHE_INODE_DIR_POPULATED |
+                             CACHE_INODE_TRUST_CONTENT);
 
 
      /* The main reason for holding the lock at this point is so we
@@ -147,7 +149,8 @@ cache_inode_invalidate(cache_inode_fsal_data_t *fsal_data,
         so we can do things like free the directory entries we just
         marked untrustworthy. */
 
-     if (entry->type == REGULAR_FILE) {
+     if ((flags == CACHE_INODE_INVALIDATE_CLOSE) &&
+         (entry->type == REGULAR_FILE)) {
           cache_inode_close(entry,
                             NULL,
                             (CACHE_INODE_FLAG_REALLYCLOSE |
