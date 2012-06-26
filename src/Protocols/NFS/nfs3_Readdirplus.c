@@ -435,7 +435,7 @@ nfs3_readdirplus_callback(void* opaque,
      /* Fileid buffer descriptor */
      entryplus3 *ep3 = tracker->entries + tracker->count;
      struct fsal_handle_desc id_descriptor
-          = {sizeof(ep3->fileid), (caddr_t) &ep3->fileid};
+          = {sizeof(ep3->fileid), 0, (caddr_t) &ep3->fileid};
 
      if (tracker->count == tracker->total_entries) {
           return FALSE;

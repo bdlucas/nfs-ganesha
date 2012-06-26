@@ -177,6 +177,7 @@ CEPHFSAL_DigestHandle(fsal_export_context_t *extexport,
                memcpy(fh_desc->start, fh_data,
                       fh_len);
                fh_desc->len = fh_len;
+               fh_desc->key_len = fh_desc->len;
           }
           break;
 
@@ -257,6 +258,7 @@ CEPHFSAL_ExpandHandle(fsal_export_context_t *extexport,
 #endif /* !_PNFS */
      } else {
           fh_desc->len = sizeof(handle->data);
+          fh_desc->key_len = fh_desc->len;
      }
 
      ReturnCode(ERR_FSAL_NO_ERROR, 0);

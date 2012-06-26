@@ -203,6 +203,7 @@ cache_inode_create(cache_entry_t *parent,
      }
      fsal_data.fh_desc.start = (caddr_t) &object_handle;
      fsal_data.fh_desc.len = 0;
+     fsal_data.fh_desc.key_len = 0;
      FSAL_ExpandHandle(context->export_context,
                        FSAL_DIGEST_SIZEOF,
                        &fsal_data.fh_desc);

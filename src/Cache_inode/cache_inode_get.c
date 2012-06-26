@@ -105,7 +105,7 @@ cache_inode_get(cache_inode_fsal_data_t *fsdata,
      /* Turn the input to a hash key on our own.
       */
      key.pdata = fsdata->fh_desc.start;
-     key.len = fsdata->fh_desc.len;
+     key.len = fsdata->fh_desc.key_len;
 
      hrc = HashTable_GetLatch(fh_to_cache_entry_ht, &key, &value,
                               FALSE,

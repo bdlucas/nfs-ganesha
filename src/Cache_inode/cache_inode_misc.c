@@ -171,6 +171,7 @@ const char *cache_inode_err_str(cache_inode_status_t err)
 int cache_inode_compare_key_fsal(hash_buffer_t *buff1,
                                  hash_buffer_t *buff2)
 {
+  int rc;
   /* Test if one of the entries is NULL */
   if(buff1->pdata == NULL)
     return (buff2->pdata == NULL) ? 0 : 1;
@@ -179,12 +180,7 @@ int cache_inode_compare_key_fsal(hash_buffer_t *buff1,
       if(buff2->pdata == NULL) {
         return -1;              /* left member is the greater one */
       }
-      int rc;
-
-      rc = (((buff1->len == buff2->len) &&
-             (memcmp(buff1->pdata, buff2->pdata, buff1->len) == 0)) ?
-            0 :
-            1);
+      rc = ((memcmp(buff1->pdata, buff2->pdata, buff1->len) == 0) ?  0 : 1);
 
       return rc;
     }
@@ -259,7 +255,7 @@ cache_inode_new_entry(cache_inode_fsal_data_t *fsdata,
      assert(attr);
 
      key.pdata = fsdata->fh_desc.start;
-     key.len = fsdata->fh_desc.len;
+     key.len = fsdata->fh_desc.key_len;
 
      /* Check if the entry doesn't already exists */
      /* This is slightly ugly, since we make two tries in the event
@@ -475,7 +471,7 @@ cache_inode_new_entry(cache_inode_fsal_data_t *fsdata,
 
      /* Adding the entry in the hash table */
      key.pdata = entry->fh_desc.start;
-     key.len = entry->fh_desc.len;
+     key.len = entry->fh_desc.key_len;
 
      value.pdata = entry;
      value.len = sizeof(cache_entry_t);

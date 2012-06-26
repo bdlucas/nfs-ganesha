@@ -533,7 +533,7 @@ nfs2_readdir_callback(void* opaque,
      entry2 *e2 = tracker->entries + tracker->count;
      /* Fileid descriptor */
      struct fsal_handle_desc id_descriptor
-          = {sizeof(e2->fileid), (caddr_t) &e2->fileid};
+          = {sizeof(e2->fileid), 0, (caddr_t) &e2->fileid};
      size_t need = sizeof(entry2) + ((namelen + 3) & ~3) + 4;
 
      if (tracker->count == tracker->total_entries) {
@@ -595,7 +595,7 @@ nfs3_readdir_callback(void* opaque,
      entry3 *e3 = tracker->entries + tracker->count;
      /* Fileid descriptor */
      struct fsal_handle_desc id_descriptor
-          = {sizeof(e3->fileid), (caddr_t) &e3->fileid};
+          = {sizeof(e3->fileid), 0, (caddr_t) &e3->fileid};
      size_t need = sizeof(entry3) + ((namelen + 3) & ~3) + 4;
 
      if (tracker->count == tracker->total_entries) {

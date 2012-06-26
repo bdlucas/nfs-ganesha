@@ -759,6 +759,7 @@ if(FSAL_IS_ERROR(status = FSAL_str2path("/xfs", FSAL_MAX_PATH_LEN, &pathroot)))
   context->client.pcontent_client = (caddr_t) & context->dc_client;
 
   fsdata.fh_desc.len = 0;
+  fsdata.fh_desc.key_len = 0;
   fsdata.fh_desc.start = (caddr_t) &root_handle;
   (void) FSAL_ExpandHandle(&context->exp_context,
 			   FSAL_DIGEST_SIZEOF,

@@ -180,7 +180,7 @@ fsal_status_t ZFSFSAL_DigestHandle(fsal_export_context_t * exp_context,     /* I
     default:
       ReturnCode(ERR_FSAL_SERVERFAULT, 0);
     }
-
+  fh_desc->key_len = fh_desc->len;
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 
 }                               /* FSAL_DigestHandle */
@@ -230,7 +230,7 @@ fsal_status_t ZFSFSAL_ExpandHandle(fsal_export_context_t * pexpcontext,     /* I
       ReturnCode(ERR_FSAL_SERVERFAULT, 0);
     }
   fh_desc->len = fh_size;  /* pass back the actual size */
- 
+  fh_desc->key_len = fh_desc->len;
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
 

@@ -123,8 +123,14 @@ struct gpfs_file_handle
 
 static inline size_t gpfs_sizeof_handle(struct gpfs_file_handle *hdl)
 {
+  return offsetof(struct gpfs_file_handle, f_handle) + hdl->handle_size;
+}
+
+static inline size_t gpfs_sizeof_key(struct gpfs_file_handle *hdl)
+{
   return offsetof(struct gpfs_file_handle, f_handle) + hdl->handle_key_size;
 }
+
 /** end of open by handle structures */
 
 /* Allow aliasing of fsal_handle_t since FSALs will be

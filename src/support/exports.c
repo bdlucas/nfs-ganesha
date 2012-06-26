@@ -2924,6 +2924,7 @@ int nfs_export_create_root_entry(exportlist_t * pexportlist)
           /* Add this entry to the Cache Inode as a "root" entry */
           fsdata.fh_desc.start = (caddr_t) &fsal_handle;
           fsdata.fh_desc.len = 0;
+          fsdata.fh_desc.key_len = 0;
 	  (void) FSAL_ExpandHandle(
 #ifdef _USE_SHARED_FSAL
 		                   context[pcurrent->fsalid].export_context,

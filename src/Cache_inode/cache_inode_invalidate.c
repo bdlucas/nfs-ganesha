@@ -80,6 +80,7 @@ cache_inode_invalidate(cache_inode_fsal_data_t *fsal_data,
      int rc = 0 ;
      cache_entry_t *entry;
      struct hash_latch latch;
+     *status = CACHE_INODE_SUCCESS;
 
      if (status == NULL || fsal_data == NULL) {
           *status = CACHE_INODE_INVALID_ARGUMENT;
@@ -93,7 +94,7 @@ cache_inode_invalidate(cache_inode_fsal_data_t *fsal_data,
 
      /* Turn the input to a hash key */
      key.pdata = fsal_data->fh_desc.start;
-     key.len = fsal_data->fh_desc.len;
+     key.len = fsal_data->fh_desc.key_len;
 
      if ((rc = HashTable_GetLatch(fh_to_cache_entry_ht,
                                   &key,

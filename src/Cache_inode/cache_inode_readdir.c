@@ -502,6 +502,7 @@ cache_inode_readdir_populate(cache_entry_t *directory,
           new_entry_fsdata.fh_desc.start
             = (caddr_t)(&array_dirent[iter].handle);
           new_entry_fsdata.fh_desc.len = 0;
+          new_entry_fsdata.fh_desc.key_len = 0;
           FSAL_ExpandHandle(context->export_context,
                             FSAL_DIGEST_SIZEOF,
                             &new_entry_fsdata.fh_desc);

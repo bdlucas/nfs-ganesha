@@ -269,6 +269,7 @@ fsal_status_t XFSFSAL_DigestHandle(fsal_export_context_t * p_expcontext,     /* 
       }
     memcpy(fh_desc->start, start, sz);
     fh_desc->len = sz;
+    fh_desc->key_len = fh_desc->len;
     ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
 
@@ -344,6 +345,7 @@ fsal_status_t XFSFSAL_ExpandHandle(fsal_export_context_t * p_expcontext,     /* 
       ReturnCode(ERR_FSAL_SERVERFAULT, 0);
     }
   fh_desc->len = fh_size;  /* pass back the actual size */
+  fh_desc->key_len = fh_desc->len;
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
 

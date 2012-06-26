@@ -223,6 +223,7 @@ cache_inode_lookup_impl(cache_entry_t *parent,
      /* Allocation of a new entry in the cache */
      new_entry_fsdata.fh_desc.start = (caddr_t) &object_handle;
      new_entry_fsdata.fh_desc.len = 0;
+     new_entry_fsdata.fh_desc.key_len = 0;
      FSAL_ExpandHandle(context->export_context,
                        FSAL_DIGEST_SIZEOF,
                        &new_entry_fsdata.fh_desc);

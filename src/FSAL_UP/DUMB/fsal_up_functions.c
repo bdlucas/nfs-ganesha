@@ -57,6 +57,9 @@ fsal_status_t dumb_fsal_up_invalidate_step1(fsal_up_event_data_t * pevdata)
                          &cache_status,
                          CACHE_INODE_INVALIDATE_CLEARBITS);
 
+  LogFullDebug(COMPONENT_FSAL_UP,
+               "FSAL_UP_DUMB: cach_status:%d\n", cache_status);
+
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
 
@@ -71,6 +74,9 @@ fsal_status_t dumb_fsal_up_invalidate_step2(fsal_up_event_data_t * pevdata)
   cache_inode_invalidate(&pevdata->event_context.fsal_data,
                          &cache_status,
                          CACHE_INODE_INVALIDATE_CLOSE);
+
+  LogFullDebug(COMPONENT_FSAL_UP,
+               "FSAL_UP_DUMB: cach_status:%d\n", cache_status);
 
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
@@ -94,7 +100,8 @@ fsal_status_t dumb_fsal_up_update(fsal_up_event_data_t * pevdata)
     cache_inode_invalidate(&pevdata->event_context.fsal_data,
                            &cache_status,
                            CACHE_INODE_INVALIDATE_CLEARBITS);
-
+  LogFullDebug(COMPONENT_FSAL_UP,
+               "FSAL_UP_DUMB: cach_status:%d\n", cache_status);
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
 

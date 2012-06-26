@@ -214,6 +214,7 @@ typedef enum fsal_nodetype__
 
 struct fsal_handle_desc {
        size_t len;     /* actual valid length of handle [IN/OUT]*/
+       size_t key_len; /* Unique portion of the handle (ex: inode #) */
        caddr_t start;  /* first octet/byte of embedded handle */
 };
 

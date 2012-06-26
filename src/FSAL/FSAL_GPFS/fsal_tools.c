@@ -242,6 +242,7 @@ fsal_status_t GPFSFSAL_DigestHandle(fsal_export_context_t *exp_context,   /* IN 
         }
       memcpy(fh_desc->start, (caddr_t)p_in_fsal_handle, fh_size);
       fh_desc->len = fh_size;
+      fh_desc->key_len = gpfs_sizeof_key((struct gpfs_file_handle *)in_fsal_handle);
       break;
 
       /* FileId digest for NFSv2 */
@@ -321,12 +322,13 @@ fsal_status_t GPFSFSAL_ExpandHandle(fsal_export_context_t *exp_context,   /* IN 
       LogMajor(COMPONENT_FSAL,
                "GPFSFSAL_ExpandHandle: size mismatch for handle.  should be %lu, got %lu",
                fh_size, fh_desc->len);
+      assert(0);
       ReturnCode(ERR_FSAL_SERVERFAULT, 0);
     }
 
   fh_desc->len = fh_size;  /* pass back the actual size */
+  fh_desc->key_len = gpfs_sizeof_key(hdl);
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
-
 }
 
 /**

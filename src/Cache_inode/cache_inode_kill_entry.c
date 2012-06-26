@@ -101,7 +101,7 @@ cache_inode_kill_entry(cache_entry_t *entry)
 
      /* Use the handle to build the key */
      key.pdata = fsaldata.fh_desc.start;
-     key.len = fsaldata.fh_desc.len;
+     key.len = fsaldata.fh_desc.key_len;
 
      val.pdata = entry;
      val.len = sizeof(cache_entry_t);
