@@ -79,6 +79,8 @@ fsal_status_t GPFSFSAL_getattrs(fsal_handle_t * p_filehandle,       /* IN */
   fsal_accessflags_t access_mask = 0;
 #endif
 
+  bzero(&buffxstat, sizeof(buffxstat));
+
   /* sanity checks.
    * note : object_attributes is mandatory in GPFSFSAL_getattrs.
    */

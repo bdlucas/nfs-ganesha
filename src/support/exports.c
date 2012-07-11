@@ -2947,6 +2947,7 @@ int nfs_export_create_root_entry(exportlist_t * pexportlist)
       fsal_op_context_t context;
       fsal_staticfsinfo_t *pstaticinfo = NULL;
       fsal_export_context_t *export_context = NULL;
+      bzero(&fsal_handle, sizeof(fsal_handle));
 
       /* Get the context for FSAL super user */
       fsal_status = FSAL_InitClientContext(&context);

@@ -540,6 +540,8 @@ fsal_status_t fsal_internal_get_handle(fsal_op_context_t * p_context,   /* IN */
   harg.dfd = AT_FDCWD;
   harg.flag = 0;
 
+  bzero(harg.handle->f_handle, 12);
+
   LogFullDebug(COMPONENT_FSAL,
                "Lookup handle for %s",
                p_fsalpath->path);
@@ -551,6 +553,7 @@ fsal_status_t fsal_internal_get_handle(fsal_op_context_t * p_context,   /* IN */
 
   harg.handle->handle_fsid[0] = p_context->export_context->fsid[0];
   harg.handle->handle_fsid[1] = p_context->export_context->fsid[1];
+//  LogCrit(COMPONENT_FSAL, "keylen:%d\n", (int)harg.handle->handle_key_size);
 
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
@@ -588,7 +591,7 @@ fsal_status_t fsal_internal_get_handle_at(int dfd,      /* IN */
   harg.name = p_fsalname->name;
   harg.dfd = dfd;
   harg.flag = 0;
-
+  bzero(harg.handle->f_handle, 12);
   LogFullDebug(COMPONENT_FSAL,
                "Lookup handle at for %s",
                p_fsalname->name);
@@ -599,7 +602,7 @@ fsal_status_t fsal_internal_get_handle_at(int dfd,      /* IN */
 
   harg.handle->handle_fsid[0] = p_context->export_context->fsid[0];
   harg.handle->handle_fsid[1] = p_context->export_context->fsid[1];
-
+  //LogCrit(COMPONENT_FSAL, "keylen:%d\n", (int)harg.handle->handle_key_size);
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
 
@@ -641,7 +644,7 @@ fsal_status_t fsal_internal_get_handle_at(int dfd,      /* IN */
   harg.out_fh->handle_key_size = OPENHANDLE_KEY_LEN;
   harg.len = p_fsalname->len;
   harg.name = p_fsalname->name;
-
+  bzero(harg.out_fh->f_handle, 12);
   LogFullDebug(COMPONENT_FSAL,
                "Lookup handle for %s",
                p_fsalname->name);
@@ -653,6 +656,7 @@ fsal_status_t fsal_internal_get_handle_at(int dfd,      /* IN */
 
   harg.out_fh->handle_fsid[0] = p_context->export_context->fsid[0];
   harg.out_fh->handle_fsid[1] = p_context->export_context->fsid[1];
+//  LogCrit(COMPONENT_FSAL, "keylen:%d\n", (int)harg.out_fh->handle_key_size);
 
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
@@ -689,7 +693,7 @@ fsal_status_t fsal_internal_fd2handle(int fd, fsal_handle_t * handle)
   harg.name = NULL;
   harg.dfd = fd;
   harg.flag = 0;
-
+  bzero(harg.handle->f_handle, 12);
   LogFullDebug(COMPONENT_FSAL,
                "Lookup handle by fd for %d",
                fd);
@@ -698,6 +702,8 @@ fsal_status_t fsal_internal_fd2handle(int fd, fsal_handle_t * handle)
 
   if(rc < 0)
     ReturnCode(posix2fsal_error(errno), errno);
+
+//  LogCrit(COMPONENT_FSAL, "keylen:%d\n", (int)harg.handle->handle_key_size);
 
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }
@@ -908,6 +914,7 @@ fsal_status_t fsal_internal_create(fsal_op_context_t * p_context,
   crarg.new_fh->handle_key_size = OPENHANDLE_KEY_LEN;
   crarg.new_fh->handle_version = OPENHANDLE_VERSION;
   crarg.buf = buf;
+  bzero(crarg.new_fh->f_handle, 12);
 
   rc = gpfs_ganesha(OPENHANDLE_CREATE_BY_NAME, &crarg);
 
@@ -916,7 +923,7 @@ fsal_status_t fsal_internal_create(fsal_op_context_t * p_context,
 
   crarg.new_fh->handle_fsid[0] = p_context->export_context->fsid[0];
   crarg.new_fh->handle_fsid[1] = p_context->export_context->fsid[1];
-
+//  LogCrit(COMPONENT_FSAL, "keylen:%d\n", (int)crarg.new_fh->handle_key_size);
 
   ReturnCode(ERR_FSAL_NO_ERROR, 0);
 }

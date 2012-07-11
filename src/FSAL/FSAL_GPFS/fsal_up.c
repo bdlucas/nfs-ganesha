@@ -78,6 +78,7 @@ fsal_status_t GPFSFSAL_UP_GetEvents( struct glist_head * pevent_head,           
   pfsal_data.fh_desc.start = (caddr_t)tmp_handlep;
   pfsal_data.fh_desc.len = sizeof(*tmp_handlep);
   phandle = (gpfsfsal_handle_t *) pfsal_data.fh_desc.start;
+  bzero(phandle->data.handle.f_handle, 12);
 
   if (pupebcontext == NULL || event_nb == NULL)
     {
